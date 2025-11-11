@@ -16,7 +16,8 @@ st.set_page_config(layout="wide")
 st.title("🤖 Ask Your Database")
 
 # Load environment variables
-load_dotenv() 
+ENV_PATH = "/Users/navneetasharma/Desktop/Ask Data App New/open_ai_key.env"
+load_dotenv(dotenv_path=ENV_PATH)
 openai_api_key = os.getenv("OPENAI_API_KEY") # LiteLLM can use this key for Gemini/GPT
 
 if not openai_api_key:
@@ -25,6 +26,7 @@ if not openai_api_key:
 
 # Define paths (Adjust to your actual path)
 DB_PATH = "/Users/navneetasharma/Desktop/Ask Data App New/sales.db"
+
 
 # ------------------------------------------------------------
 # ✅ FIX: Initialize Session State at the Top Level
@@ -86,7 +88,7 @@ def load_data_and_create_sdl(db_path, openai_key):
         conn.close() 
         
         # Use a powerful model for reasoning and code generation
-        llm = LiteLLM(model="gpt-4o-mini", api_key=openai_key) 
+        llm = LiteLLM(model="openai/gpt-4o", api_key=openai_key) 
         
         # SDL for structured DataFrame output (Simulates generate_data_code tool)
         config_df = Config(llm=llm, save_charts=False, output_type='dataframe')
@@ -153,6 +155,11 @@ if sdl_df and sdl_text:
                 # ------------------------------------------------------------
                 prompt_df = f"""
                 You are a data analyst assistant. The user asked: "{query}"
+
+                # IMPORTANT CONTEXT:
+                # 1. Date columns are named 'order_date' or 'ship_date' and are in YYYY-MM-DD format.
+                # 2. Sales figures are always in the column named 'sales_value'.
+                # 3. Always prioritize the 'transactions' table for sales queries.
                 
                 **Strict Output Requirements:**
                 1. Always return a single, pre-aggregated pandas DataFrame.
