@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from pandasai import SmartDatalake
 from pandasai.config import Config
 from pandasai_litellm.litellm import LiteLLM
@@ -17,7 +17,7 @@ st.title("🤖 Ask Your Database")
 
 # Load environment variables
 ENV_PATH = "/Users/navneetasharma/Desktop/Ask Data App New/open_ai_key.env"
-load_dotenv(dotenv_path=ENV_PATH)
+# load_dotenv(dotenv_path=ENV_PATH)
 openai_api_key = os.getenv("OPENAI_API_KEY") # LiteLLM can use this key for Gemini/GPT
 
 if not openai_api_key:
@@ -25,8 +25,8 @@ if not openai_api_key:
     st.stop()
 
 # Define paths (Adjust to your actual path)
-DB_PATH = "/Users/navneetasharma/Desktop/Ask Data App New/sales.db"
-
+# DB_PATH = "/Users/navneetasharma/Desktop/Ask Data App New/sales.db"
+DB_PATH = "sales.db"
 
 # ------------------------------------------------------------
 # ✅ FIX: Initialize Session State at the Top Level
