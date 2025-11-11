@@ -1,6 +1,9 @@
 streamlit
 pandas
 matplotlib
-pandasai
-pandasai_litellm
+plotly
 python-dotenv
+pandasai
+pandasai-litellm
+sqlite3
+
